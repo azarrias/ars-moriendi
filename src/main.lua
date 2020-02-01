@@ -2,15 +2,19 @@ push = require 'libs.push'
 
 local MOBILE_OS = (love._version_major > 0 or love._version_minor >= 9) and (love.system.getOS() == 'Android' or love.system.getOS() == 'OS X')
 local WEB_OS = (love._version_major > 0 or love._version_minor >= 9) and love.system.getOS() == 'Web'
-local WINDOW_WIDTH, WINDOW_HEIGHT = 1280, 720
-local VIRTUAL_WIDTH, VIRTUAL_HEIGHT = 512, 288
-local GAME_TITLE = 'Hello LÖVE2D!!'
-local FONT_SIZE = 16
+local WINDOW_WIDTH, WINDOW_HEIGHT = 840, 480
+local VIRTUAL_WIDTH, VIRTUAL_HEIGHT = 84, 48
+local GAME_TITLE = 'Ars moriendi'
+--local FONT_SIZE = 8
 
 function love.load()
   if arg[#arg] == "-debug" then 
     require("mobdebug").start() 
   end
+  
+  -- use nearest-neighbor (point) filtering on upscaling and downscaling to prevent blurring of text and 
+  -- graphics instead of the bilinear filter that is applied by default 
+  love.graphics.setDefaultFilter('nearest', 'nearest')
   
   -- Set up window
   push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
@@ -20,17 +24,13 @@ function love.load()
   })
   love.window.setTitle(GAME_TITLE)
   
-  -- use nearest-neighbor (point) filtering on upscaling and downscaling to prevent blurring of text and 
-  -- graphics instead of the bilinear filter that is applied by default 
-  love.graphics.setDefaultFilter('nearest', 'nearest')
-  
-  font = love.graphics.newFont(FONT_SIZE)
+  font = love.graphics.newImageFont('fonts/nokia-3310-classic.png',
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 $€£¥¤+-*/=%\"'#@&_(),.;:?!\\|[]<>{}`^~")
+
   love.graphics.setFont(font)
   os_str = love.system.getOS()
   vmajor, vminor, vrevision, vcodename = love.getVersion()
-  v_str = string.format("Love version: %d.%d.%d - %s", vmajor, vminor, vrevision, vcodename)
-  bd_str = love.filesystem.getSourceBaseDirectory()
-  wd_str = love.filesystem.getWorkingDirectory()
+  v_str = string.format("Version: %d.%d.%d - %s", vmajor, vminor, vrevision, vcodename)
   
   love.keyboard.keysPressed = {}
 end
@@ -56,10 +56,14 @@ end
 
 function love.draw()
   push:start()
-  love.graphics.print(GAME_TITLE, 0, 0)
-  love.graphics.print("O.S.: " .. os_str, 0, 16)
-  love.graphics.print(v_str, 0, 32)
-  love.graphics.print("Source base path: " .. bd_str, 0, 48)
-  love.graphics.print("Working path: " .. wd_str, 0, 64)
+  love.graphics.clear(67 / 255, 82 / 255, 61 / 255)
+  love.graphics.scale(2)
+  love.graphics.setColor(199 / 255, 240 / 255, 216 / 255)
+  love.graphics.printf('Ars', 0, 20 / 2, VIRTUAL_WIDTH / 2, 'center')
+  push:finish()
+  
+  push:start()
+  love.graphics.setColor(199 / 255, 240 / 255, 216 / 255)
+  love.graphics.printf('moriendi', 0, 36, VIRTUAL_WIDTH, 'center')
   push:finish()
 end
