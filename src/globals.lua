@@ -9,6 +9,8 @@ require 'Entity'
 require 'GameStatePlay'
 require 'GameStateStart'
 require 'Player'
+require 'PlayerStateIdle'
+require 'PlayerStateMoving'
 require 'StateMachine'
 require 'util'
 require 'Vector2D'
@@ -23,6 +25,9 @@ VIRTUAL_WIDTH, VIRTUAL_HEIGHT = 84, 48
 
 -- sprite pixels
 PLAYER_WIDTH, PLAYER_HEIGHT = 6, 6
+
+-- physics for entities
+PLAYER_MOVING_SPEED = 40
 
 -- color palette
 COLORS = {
