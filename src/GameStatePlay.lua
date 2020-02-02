@@ -7,7 +7,8 @@ function GameStatePlay:init()
     texture = 'player',
     stateMachine = StateMachine {
       ['idle'] = function() return PlayerStateIdle(self.player) end,
-      ['moving'] = function() return PlayerStateMoving(self.player) end
+      ['moving'] = function() return PlayerStateMoving(self.player) end,
+      ['jumping'] = function() return PlayerStateJumping(self.player) end
     }
   })
   

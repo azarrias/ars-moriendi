@@ -12,4 +12,8 @@ function PlayerStateIdle:update(dt)
   if love.keyboard.keysPressed['left'] or love.keyboard.keysPressed['right'] then
     self.player:changeState('moving')
   end
+  
+  if love.keyboard.keysPressed['space'] then
+    self.player:changeState('jumping')
+  end
 end

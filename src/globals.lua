@@ -10,6 +10,7 @@ require 'GameStatePlay'
 require 'GameStateStart'
 require 'Player'
 require 'PlayerStateIdle'
+require 'PlayerStateJumping'
 require 'PlayerStateMoving'
 require 'StateMachine'
 require 'util'
@@ -28,6 +29,8 @@ PLAYER_WIDTH, PLAYER_HEIGHT = 6, 6
 
 -- physics for entities
 PLAYER_MOVING_SPEED = 40
+GRAVITY = 6
+PLAYER_JUMPING_VELOCITY = -120
 
 -- color palette
 COLORS = {
