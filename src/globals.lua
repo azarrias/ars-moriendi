@@ -3,6 +3,7 @@ push = require 'libs.push'
 Class = require 'libs.class'
 
 -- include
+require 'Animation'
 require 'BaseState'
 require 'GameStatePlay'
 require 'GameStateStart'
