@@ -6,8 +6,10 @@ Class = require 'libs.class'
 require 'BaseState'
 require 'GameStatePlay'
 require 'GameStateStart'
+require 'Player'
 require 'StateMachine'
 require 'util'
+require 'Vector2D'
 
 --[[
     constants

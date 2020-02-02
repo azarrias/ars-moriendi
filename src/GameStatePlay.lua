@@ -1,7 +1,11 @@
 GameStatePlay = Class{__includes = BaseState}
 
-function GameStatePlay:init(def)
-  -- TO DO
+function GameStatePlay:init()
+  self.player = Player({
+    position = Vector2D(0, 0),
+    size = Vector2D(PLAYER_WIDTH, PLAYER_HEIGHT),
+    texture = 'player'
+  })
 end
 
 function GameStatePlay:update(dt)
@@ -10,6 +14,5 @@ end
 
 function GameStatePlay:render()
   love.graphics.clear(COLORS['light'])
-  love.graphics.draw(TEXTURES['player'], FRAMES['player'][1],
-    VIRTUAL_WIDTH / 2, VIRTUAL_HEIGHT / 2, 0, 1, 1)
+  self.player:render()
 end
