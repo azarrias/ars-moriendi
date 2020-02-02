@@ -17,9 +17,11 @@ function PlayerStateMoving:update(dt)
     
   elseif love.keyboard.isDown('left') then
     self.player.position.x = self.player.position.x - PLAYER_MOVING_SPEED * dt
+    self.player.orientation = 'left'
 
   elseif love.keyboard.isDown('right') then
     self.player.position.x = self.player.position.x + PLAYER_MOVING_SPEED * dt
+    self.player.orientation = 'right'
   end
   
   if love.keyboard.keysPressed['space'] then
