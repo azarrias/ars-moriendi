@@ -1,9 +1,7 @@
-push = require 'libs.push'
+require 'globals'
 
 local MOBILE_OS = (love._version_major > 0 or love._version_minor >= 9) and (love.system.getOS() == 'Android' or love.system.getOS() == 'OS X')
 local WEB_OS = (love._version_major > 0 or love._version_minor >= 9) and love.system.getOS() == 'Web'
-local WINDOW_WIDTH, WINDOW_HEIGHT = 840, 480
-local VIRTUAL_WIDTH, VIRTUAL_HEIGHT = 84, 48
 local GAME_TITLE = 'Ars moriendi'
 --local FONT_SIZE = 8
 
@@ -24,8 +22,16 @@ function love.load()
   })
   love.window.setTitle(GAME_TITLE)
   
+  gameStateMachine = StateMachine {
+    ['start'] = function() return GameStateStart() end,
+    ['play'] = function() return GameStatePlay() end,
+    ['game-over'] = function() return GameStateGameOver() end
+  }
+  gameStateMachine:change('start')
+  
   font = love.graphics.newImageFont('fonts/nokia-3310-classic.png',
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 $€£¥¤+-*/=%\"'#@&_(),.;:?!\\|[]<>{}`^~")
+  FONT_HEIGHT = font:getHeight()
 
   love.graphics.setFont(font)
   os_str = love.system.getOS()
@@ -56,14 +62,6 @@ end
 
 function love.draw()
   push:start()
-  love.graphics.clear(67 / 255, 82 / 255, 61 / 255)
-  love.graphics.scale(2)
-  love.graphics.setColor(199 / 255, 240 / 255, 216 / 255)
-  love.graphics.printf('Ars', 0, 20 / 2, VIRTUAL_WIDTH / 2, 'center')
-  push:finish()
-  
-  push:start()
-  love.graphics.setColor(199 / 255, 240 / 255, 216 / 255)
-  love.graphics.printf('moriendi', 0, 36, VIRTUAL_WIDTH, 'center')
+  gameStateMachine:render()
   push:finish()
 end
