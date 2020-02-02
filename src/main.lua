@@ -47,6 +47,8 @@ function love.update(dt)
     love.event.quit()
   end
   
+  gameStateMachine:update(dt)
+  
   love.keyboard.keysPressed = {}
 end
 
