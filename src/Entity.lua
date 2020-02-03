@@ -7,6 +7,7 @@ function Entity:init(def)
   self.texture = def.texture
   self.stateMachine = def.stateMachine
   self.orientation = 'left'
+  self.tileMap = def.tileMap
 end
 
 function Entity:update(dt)

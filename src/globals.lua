@@ -5,6 +5,7 @@ Class = require 'libs.class'
 -- include
 require 'Animation'
 require 'BaseState'
+require 'Camera'
 require 'Entity'
 require 'GameStatePlay'
 require 'GameStateStart'
