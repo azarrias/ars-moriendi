@@ -18,9 +18,9 @@ function PlayerStateJumping:update(dt)
   self.player.position.y = self.player.position.y + self.player.velocity.y * dt
   
   -- TO DO - implement collisions
-  if self.player.position.y >= VIRTUAL_HEIGHT / 2 then
+  if self.player.position.y >= (PLAYER_STARTING_Y - 1) * PLAYER_HEIGHT then
     self.player.velocity.y = 0
-    self.player.position.y = VIRTUAL_HEIGHT / 2
+    self.player.position.y = (PLAYER_STARTING_Y - 1) * PLAYER_HEIGHT
     
     if love.keyboard.isDown('left') or love.keyboard.isDown('right') then
       self.player:changeState('moving')
