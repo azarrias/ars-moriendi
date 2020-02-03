@@ -5,7 +5,7 @@ function PlayerStateMoving:init(player)
   
   self.animation = Animation {
     frames = { FRAMES[player.texture][1], FRAMES[player.texture][2] },
-    interval = 0.2
+    interval = 0.3
   }
 end
 
@@ -16,11 +16,13 @@ function PlayerStateMoving:update(dt)
     self.player:changeState('idle')
     
   elseif love.keyboard.isDown('left') then
-    self.player.position.x = self.player.position.x - PLAYER_MOVING_SPEED * dt
+    self.player.velocity.x = -PLAYER_MOVING_ACCELERATION * dt
+    self.player.position.x = self.player.position.x + self.player.velocity.x * dt
     self.player.orientation = 'left'
 
-  elseif love.keyboard.isDown('right') then
-    self.player.position.x = self.player.position.x + PLAYER_MOVING_SPEED * dt
+elseif love.keyboard.isDown('right') then
+    self.player.velocity.x = PLAYER_MOVING_ACCELERATION * dt
+    self.player.position.x = self.player.position.x + self.player.velocity.x * dt
     self.player.orientation = 'right'
   end
   

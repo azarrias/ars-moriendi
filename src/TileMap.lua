@@ -6,6 +6,9 @@ function TileMap:init(tiles)
   self.height = #tiles
 end
 
+function TileMap:update(dt)
+end
+
 function TileMap:render()
   for y = 1, self.height do
     for x = 1, self.width do

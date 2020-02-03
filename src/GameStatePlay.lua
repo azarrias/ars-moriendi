@@ -1,10 +1,11 @@
 GameStatePlay = Class{__includes = BaseState}
 
 function GameStatePlay:init()
-  self.tileMap = LevelFactory.create(100, 10)  
+  self.gameLevel = LevelFactory.create(100, 10)  
+  self.gameLevel:spawnEnemies()
   
   self.player = Player({
-    position = Vector2D((PLAYER_STARTING_X - 1) * PLAYER_WIDTH, (PLAYER_STARTING_Y - 1) * PLAYER_HEIGHT),
+    position = Vector2D(PLAYER_STARTING_X * TILE_WIDTH - PLAYER_WIDTH, PLAYER_STARTING_Y * TILE_HEIGHT - PLAYER_HEIGHT),
     size = Vector2D(PLAYER_WIDTH, PLAYER_HEIGHT),
     texture = 'player',
     stateMachine = StateMachine {
@@ -12,7 +13,7 @@ function GameStatePlay:init()
       ['moving'] = function() return PlayerStateMoving(self.player) end,
       ['jumping'] = function() return PlayerStateJumping(self.player) end
     },
-    tileMap = self.tileMap
+    gameLevel = self.gameLevel
   })
   
   self.player:changeState('idle')
@@ -22,6 +23,7 @@ end
 
 function GameStatePlay:update(dt)
   self.player:update(dt)
+  self.gameLevel:update(dt)
   self.camera:update()
 end
 
@@ -34,6 +36,6 @@ function GameStatePlay:render()
   -- as things are attempted to be drawn fractionally and then forced onto a small virtual canvas
   love.graphics.translate(-math.floor(self.camera.position.x), 0)
   
-  self.tileMap:render()
+  self.gameLevel:render()
   self.player:render()
 end

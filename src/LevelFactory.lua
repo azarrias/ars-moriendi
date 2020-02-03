@@ -23,5 +23,5 @@ function LevelFactory.create(width, height)
   
   local tileMap = TileMap(tiles)
   
-  return tileMap
+  return GameLevel(tileMap)
 end

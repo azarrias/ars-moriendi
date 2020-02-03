@@ -7,6 +7,7 @@ require 'Animation'
 require 'BaseState'
 require 'Camera'
 require 'Entity'
+require 'GameLevel'
 require 'GameStatePlay'
 require 'GameStateStart'
 require 'LevelFactory'
@@ -14,6 +15,9 @@ require 'Player'
 require 'PlayerStateIdle'
 require 'PlayerStateJumping'
 require 'PlayerStateMoving'
+require 'Sorcerer'
+require 'SorcererStateIdle'
+require 'SorcererStateMoving'
 require 'StateMachine'
 require 'Tile'
 require 'TileMap'
@@ -39,9 +43,11 @@ VIRTUAL_WIDTH, VIRTUAL_HEIGHT = 84, 48
 -- sprite pixels
 PLAYER_WIDTH, PLAYER_HEIGHT = 6, 6
 TILE_WIDTH, TILE_HEIGHT = 6, 6
+SORCERER_WIDTH, SORCERER_HEIGHT = 11, 7
 
 -- physics for entities
-PLAYER_MOVING_SPEED = 40
+PLAYER_MOVING_ACCELERATION = 1600
+SORCERER_MOVING_ACCELERATION = 400
 GRAVITY = 6
 PLAYER_JUMPING_VELOCITY = -120
 
@@ -54,10 +60,12 @@ COLORS = {
 -- graphics resources
 TEXTURES = {
   ['player'] = love.graphics.newImage('graphics/player.png'),
-  ['tiles'] = love.graphics.newImage('graphics/tiles.png')
+  ['tiles'] = love.graphics.newImage('graphics/tiles.png'),
+  ['sorcerer'] = love.graphics.newImage('graphics/sorcerer.png')
 }
 
 FRAMES = {
   ['player'] = GenerateQuads(TEXTURES['player'], PLAYER_WIDTH, PLAYER_HEIGHT),
-  ['tiles'] = GenerateQuads(TEXTURES['tiles'], TILE_WIDTH, TILE_HEIGHT)
+  ['tiles'] = GenerateQuads(TEXTURES['tiles'], TILE_WIDTH, TILE_HEIGHT),
+  ['sorcerer'] = GenerateQuads(TEXTURES['sorcerer'], SORCERER_WIDTH, SORCERER_HEIGHT)
 }

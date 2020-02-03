@@ -29,11 +29,13 @@ function PlayerStateJumping:update(dt)
     end
   
   elseif love.keyboard.isDown('left') then
-    self.player.position.x = self.player.position.x - PLAYER_MOVING_SPEED * dt
+    self.player.velocity.x = -PLAYER_MOVING_ACCELERATION * dt
+    self.player.position.x = self.player.position.x + self.player.velocity.x * dt
     self.player.orientation = 'left'
 
   elseif love.keyboard.isDown('right') then
-    self.player.position.x = self.player.position.x + PLAYER_MOVING_SPEED * dt
+    self.player.velocity.x = PLAYER_MOVING_ACCELERATION * dt
+    self.player.position.x = self.player.position.x + self.player.velocity.x * dt
     self.player.orientation = 'right'
   end
   
