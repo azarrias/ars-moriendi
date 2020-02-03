@@ -19,3 +19,16 @@ function Tile:render()
     TILE_HEIGHT / 2
   )
 end
+
+--[[
+    Checks that this ID is not blacklisted as non collidable in a global constants table
+]]
+function Tile:collidable(target)
+  for k, v in pairs(TILE_ID_NON_COLLIDABLE) do
+    if v == self.id then
+      return false
+    end
+  end
+
+  return true
+end

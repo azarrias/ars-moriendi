@@ -13,16 +13,22 @@ function PlayerStateFalling:update(dt)
   self.player.velocity.y = self.player.velocity.y + GRAVITY
   self.player.position.y = self.player.position.y + self.player.velocity.y * dt
   
-  -- TO DO - implement collisions
-  if self.player.position.y >= (PLAYER_STARTING_Y - 1) * PLAYER_HEIGHT then
+  -- check the tiles below the player's feet
+  local tileLeftBottom = self.player.colliders['bottom']:checkTileCollisions(self.player.gameLevel.tileMap, 'left-bottom')
+  local tileRightBottom = self.player.colliders['bottom']:checkTileCollisions(self.player.gameLevel.tileMap, 'right-bottom')
+  
+  if tileLeftBottom or tileRightBottom then
     self.player.velocity.y = 0
-    self.player.position.y = (PLAYER_STARTING_Y - 1) * PLAYER_HEIGHT
     
     if love.keyboard.isDown('left') or love.keyboard.isDown('right') then
       self.player:changeState('moving')
     else
       self.player:changeState('idle')
     end
+  
+    -- rectify the player's y coordinate to its appropriate value
+    local tile = tileLeftBottom ~= nil and tileLeftBottom or tileRightBottom
+    self.player.position.y = (tile.position.y - 1) * TILE_HEIGHT - self.player.size.y
   
   elseif love.keyboard.isDown('left') then
     self.player.velocity.x = -PLAYER_MOVING_ACCELERATION * dt

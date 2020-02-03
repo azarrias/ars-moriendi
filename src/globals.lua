@@ -39,6 +39,7 @@ TILE_ID_EMPTY = 1 -- transparent sprite
 TILE_ID_GROUND_CORBEL = 3 
 TILE_ID_GROUND = 4 -- normal ground sprite
 TILE_ID_GROUND_VARIATIONS = { 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 }
+TILE_ID_NON_COLLIDABLE = { 1 }
   
 -- resolution
 WINDOW_WIDTH, WINDOW_HEIGHT = 840, 480

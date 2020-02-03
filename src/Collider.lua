@@ -24,3 +24,23 @@ end
 function Collider:getWorldCoordinates()
   return self.parent.position + self.position
 end
+
+function Collider:checkTileCollisions(tilemap, direction)
+  local tile
+  
+  if direction == 'left-top' then
+    tile = tilemap:pointToTile(self:getWorldCoordinates())
+  elseif direction == 'right-top' then
+    tile = tilemap:pointToTile(self:getWorldCoordinates() + Vector2D(self.size.x, 0))
+  elseif direction == 'left-bottom' then
+    tile = tilemap:pointToTile(self:getWorldCoordinates() + Vector2D(0, self.size.y))
+  elseif direction == 'right-bottom' then
+    tile = tilemap:pointToTile(self:getWorldCoordinates() + self.size)
+  end
+  
+  if tile and tile:collidable() then
+    return tile
+  else
+    return nil
+  end
+end
