@@ -78,7 +78,7 @@ function LevelFactory.create(width, height)
         tileId = TILE_ID_GROUND_VARIATIONS[math.random(#TILE_ID_GROUND_VARIATIONS)]
         scale = Vector2D(math.random(1, 2) * 2 - 3 or 1, math.random(1, 2) * 2 - 3 or 1)
       end
-      tiles[y][x] = Tile(x, y, tileId, scale)
+      tiles[y][x] = Tile(x, y, tileId, false, scale)
     end
     
     ::continue::

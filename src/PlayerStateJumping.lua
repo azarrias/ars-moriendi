@@ -31,7 +31,7 @@ function PlayerStateJumping:update(dt)
     if tiles['left-top'] or tiles['left-bottom'] then
       local tile = not tiles['left-top'] and tiles['left-bottom'] or tiles['left-top']
       if not tile.platform then
-        self.player.position.x = (tile.position.x - 1) * TILE_WIDTH + TILE_WIDTH
+        self.player.position.x = (tile.position.x - 1) * TILE_WIDTH + TILE_WIDTH - 1
       end
     end
 
@@ -44,7 +44,7 @@ function PlayerStateJumping:update(dt)
     if tiles['right-top'] or tiles['right-bottom'] then
       local tile = not tiles['right-top'] and tiles['right-bottom'] or tiles['right-top']
       if not tile.platform then
-        self.player.position.x = (tile.position.x - 1) * TILE_WIDTH - self.player.size.x
+        self.player.position.x = (tile.position.x - 1) * TILE_WIDTH - self.player.size.x + 1
       end
     end    
     
