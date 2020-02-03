@@ -1,8 +1,9 @@
 Tile = Class{}
 
-function Tile:init(x, y, id, scale)
+function Tile:init(x, y, id, platform, scale)
   self.position = Vector2D(x, y)
   self.id = id
+  self.platform = platform or false
   self.scale = scale or Vector2D(1, 1)
 end
 

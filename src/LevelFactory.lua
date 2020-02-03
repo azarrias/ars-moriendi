@@ -45,14 +45,14 @@ function LevelFactory.create(width, height)
     
     if spawnPlatform then
       local scale = Vector2D(-1, 1)
-      tiles[platformHeight][x] = Tile(x, platformHeight, TILE_ID_GROUND_CORBEL, scale)
+      tiles[platformHeight][x] = Tile(x, platformHeight, TILE_ID_GROUND_CORBEL, true, scale)
       remainingTiles = remainingTiles - 1
       spawnPlatform = false
     elseif startedPlatform and remainingTiles > 1 then
-      tiles[platformHeight][x] = Tile(x, platformHeight, TILE_ID_GROUND)
+      tiles[platformHeight][x] = Tile(x, platformHeight, TILE_ID_GROUND, true)
       remainingTiles = remainingTiles - 1
     elseif startedPlatform then
-      tiles[platformHeight][x] = Tile(x, platformHeight, TILE_ID_GROUND_CORBEL)
+      tiles[platformHeight][x] = Tile(x, platformHeight, TILE_ID_GROUND_CORBEL, true)
       startedPlatform = false
       platformCooldown = 3
     end

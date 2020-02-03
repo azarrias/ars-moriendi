@@ -25,22 +25,20 @@ function Collider:getWorldCoordinates()
   return self.parent.position + self.position
 end
 
-function Collider:checkTileCollisions(tilemap, direction)
-  local tile
+function Collider:checkTileCollisions(tilemap)
+  local tiles = {}
+  local coord = self:getWorldCoordinates()
   
-  if direction == 'left-top' then
-    tile = tilemap:pointToTile(self:getWorldCoordinates())
-  elseif direction == 'right-top' then
-    tile = tilemap:pointToTile(self:getWorldCoordinates() + Vector2D(self.size.x, 0))
-  elseif direction == 'left-bottom' then
-    tile = tilemap:pointToTile(self:getWorldCoordinates() + Vector2D(0, self.size.y))
-  elseif direction == 'right-bottom' then
-    tile = tilemap:pointToTile(self:getWorldCoordinates() + self.size)
+  tiles['left-top'] = tilemap:pointToTile(coord)
+  tiles['right-top'] = tilemap:pointToTile(coord + Vector2D(self.size.x, 0))
+  tiles['left-bottom'] = tilemap:pointToTile(coord + Vector2D(0, self.size.y))
+  tiles['right-bottom'] = tilemap:pointToTile(coord + self.size)
+  
+  for k, tile in pairs(tiles) do
+    if not tile:collidable() then
+      tiles[k] = nil
+    end
   end
   
-  if tile and tile:collidable() then
-    return tile
-  else
-    return nil
-  end
+  return tiles
 end

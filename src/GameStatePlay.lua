@@ -22,6 +22,19 @@ function GameStatePlay:init()
     size = Vector2D(2, 1)
   }
   self.player:addCollider('bottom', playerBottomCollider)
+
+  local playerLeftCollider = Collider {
+    center = Vector2D(1.5, PLAYER_HEIGHT / 2),
+    size = Vector2D(1, 4)
+  }
+  self.player:addCollider('left', playerLeftCollider)
+  
+  local playerRightCollider = Collider {
+    center = Vector2D(PLAYER_WIDTH - 1.5, PLAYER_HEIGHT / 2),
+    size = Vector2D(1, 4)
+  }
+  self.player:addCollider('right', playerRightCollider)
+
   self.player:changeState('idle')
   
   self.camera = Camera(self.player)
