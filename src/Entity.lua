@@ -8,6 +8,7 @@ function Entity:init(def)
   self.stateMachine = def.stateMachine
   self.orientation = 'left'
   self.gameLevel = def.gameLevel
+  self.colliders = {}
 end
 
 function Entity:update(dt)
@@ -24,8 +25,17 @@ function Entity:render()
     -- set origin to the sprite center (to allow reversing it through negative scaling)
     math.floor(self.size.x * 0.5), math.floor(self.size.y * 0.5)
   )
+  
+  for k, collider in pairs(self.colliders) do
+    collider:render()
+  end
 end
 
 function Entity:changeState(state, params)
   self.stateMachine:change(state, params)
+end
+
+function Entity:addCollider(label, collider)
+  collider.parent = self
+  self.colliders[label] = collider
 end

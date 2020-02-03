@@ -14,9 +14,14 @@ function GameStatePlay:init()
       ['jumping'] = function() return PlayerStateJumping(self.player) end,
       ['falling'] = function() return PlayerStateFalling(self.player) end
     },
-    gameLevel = self.gameLevel
+    gameLevel = self.gameLevel,
   })
-  
+
+  local playerBottomCollider = Collider {
+    center = Vector2D(PLAYER_WIDTH / 2, PLAYER_HEIGHT + 0.5),
+    size = Vector2D(4, 1)
+  }
+  self.player:addCollider('bottom', playerBottomCollider)
   self.player:changeState('idle')
   
   self.camera = Camera(self.player)
