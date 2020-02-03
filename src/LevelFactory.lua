@@ -13,18 +13,49 @@ function LevelFactory.create(width, height)
     end
   end
   
+  local startedPlatform = false
+  local remainingTiles = 0
+  local platformHeight = 0
+  local platformCooldown = 0
+  
   -- iterate over X at the top level to generate the level in columns instead of rows
   for x = 1, width do
     
     -- 15% random chance to skip this column; i.e. a chasm
     -- 12% random chance for a pillar
+    -- 20% random chance for a platform
     local spawnChasm = false
     local spawnPillar = false
+    local spawnPlatform = false
+    platformCooldown = platformCooldown - 1
     
     if x > PLAYER_STARTING_X + 2 and x < width - (PLAYER_STARTING_X + 2) then
-      spawnChasm = math.random(100) < 15
-      spawnPillar = math.random(100) < 12
-    end  
+      spawnChasm = math.random(100) <= 15
+      spawnPillar = math.random(100) <= 12
+      
+      if not startedPlatform and platformCooldown <= 0 then
+        spawnPlatform = math.random(100) <= 12
+        if spawnPlatform  then
+          startedPlatform = true
+          remainingTiles = math.random(2, 10)
+          platformHeight = math.random(3, 4)
+        end
+      end
+    end 
+    
+    if spawnPlatform then
+      local scale = Vector2D(-1, 1)
+      tiles[platformHeight][x] = Tile(x, platformHeight, TILE_ID_GROUND_CORBEL, scale)
+      remainingTiles = remainingTiles - 1
+      spawnPlatform = false
+    elseif startedPlatform and remainingTiles > 1 then
+      tiles[platformHeight][x] = Tile(x, platformHeight, TILE_ID_GROUND)
+      remainingTiles = remainingTiles - 1
+    elseif startedPlatform then
+      tiles[platformHeight][x] = Tile(x, platformHeight, TILE_ID_GROUND_CORBEL)
+      startedPlatform = false
+      platformCooldown = 3
+    end
 
     if spawnChasm then
       -- workaround for lua missing the 'continue' statement

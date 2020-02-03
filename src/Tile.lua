@@ -10,8 +10,8 @@ function Tile:render()
   love.graphics.draw(
     TEXTURES['tiles'], 
     FRAMES['tiles'][self.id],
-    (self.position.x - 1) * TILE_WIDTH + TILE_WIDTH / 2, 
-    (self.position.y - 1) * TILE_HEIGHT + TILE_HEIGHT / 2,
+    (self.position.x - 1) * TILE_WIDTH + TILE_WIDTH * 0.5, 
+    (self.position.y - 1) * TILE_HEIGHT + TILE_HEIGHT * 0.5,
     0,
     self.scale.x,
     self.scale.y,
