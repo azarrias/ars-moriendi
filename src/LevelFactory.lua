@@ -17,7 +17,14 @@ function LevelFactory.create(width, height)
   for x = 1, width do
     -- always generate ground
     for y = TOP_GROUND_TILE_Y, height do
-      tiles[y][x] = Tile(x, y, TILE_ID_GROUND)
+      local tileId = TILE_ID_GROUND
+      local isVariation = false
+      -- introduce random variations within the ground tiles
+      if math.random(15) == 1 then
+        tileId = TILE_ID_GROUND_VARIATIONS[math.random(#TILE_ID_GROUND_VARIATIONS)]
+        isVariation = true
+      end
+      tiles[y][x] = Tile(x, y, tileId, isVariation)
     end
   end
   

@@ -38,6 +38,4 @@ function PlayerStateJumping:update(dt)
     self.player.position.x = self.player.position.x + self.player.velocity.x * dt
     self.player.orientation = 'right'
   end
-  
-  
 end
