@@ -1,13 +1,9 @@
 Tile = Class{}
 
-function Tile:init(x, y, id, isVariation)
+function Tile:init(x, y, id, scale)
   self.position = Vector2D(x, y)
   self.id = id
-  self.isVariation = isVariation ~= nil and isVariation or false
-  -- set the scale randomly to -1 or 1 in both axis (if it's a variation of a ground tile)
-  -- just in order to have some more variation
-  self.scale = Vector2D(self.isVariation and math.random(1, 2) * 2 - 3 or 1, 
-    self.isVariation and math.random(1, 2) * 2 - 3 or 1)
+  self.scale = scale or Vector2D(1, 1)
 end
 
 function Tile:render()

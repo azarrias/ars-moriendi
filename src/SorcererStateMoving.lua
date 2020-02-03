@@ -5,7 +5,7 @@ function SorcererStateMoving:init(sorcerer)
   
   self.animation = Animation {
     frames = { FRAMES[sorcerer.texture][1], FRAMES[sorcerer.texture][2] },
-    interval = 0.5
+    interval = 0.6
   }
   
   self.sorcerer.orientation = math.random(2) == 1 and 'left' or 'right'

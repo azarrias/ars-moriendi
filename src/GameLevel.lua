@@ -34,7 +34,7 @@ function GameLevel:spawnEnemies()
     
     for y = 1, self.tileMap.height do
       if not groundFound then
-        if self.tileMap.tiles[y][x].id == TILE_ID_GROUND then
+        if self.tileMap.tiles[y][x].id ~= TILE_ID_EMPTY then
           groundFound = true
           
           if math.random(20) == 1 then
