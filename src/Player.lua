@@ -13,8 +13,52 @@ function Player:update(dt)
   elseif self.position.x > TILE_WIDTH * self.gameLevel.tileMap.width - self.size.x then
     self.position.x = TILE_WIDTH * self.gameLevel.tileMap.width - self.size.x
   end
+  
+  -- calculate distance to the enemies
+  local playerPoint = self.position + Vector2D(self.size.x / 2, self.size.y / 2)
+  local playerTile = self.gameLevel.tileMap:pointToTile(playerPoint)
+  local minDistance = math.max(self.gameLevel.tileMap.width * TILE_WIDTH, 
+      self.gameLevel.tileMap.height * TILE_HEIGHT)
+  local closestEnemy = nil
+    
+  for k, entity in pairs(self.gameLevel.entities) do
+    local entityPoint = entity.position + Vector2D(entity.size.x / 2, entity.size.y / 2)
+    local entityTile = self.gameLevel.tileMap:pointToTile(entityPoint)
+    
+    local dist = self:calculateDistance(entityPoint)
+    
+    if dist > PLAYER_SORCERER_DETECTION_RANGE or
+      entity.orientation == 'left' and self.position.x > entity.position.x or
+      entity.orientation == 'right' and self.position.x < entity.position.x then
+      break
+    else
+      local detectedPlayer = bresenham.los(entityTile.position.x, entityTile.position.y,
+        playerTile.position.x, playerTile.position.y, 
+        function(x, y)
+          if self.gameLevel.tileMap.tiles[y][x]:collidable() then
+            return false
+          end
+          
+          return true
+        end
+      )
+      
+      if detectedPlayer then
+        print("[" .. dt .. "]")
+        print("Player at:") 
+        print(playerTile.position)
+        print("Enemy at:")
+        print(entityTile.position)
+      end
+    end
+  end
 end
 
 function Player:render()
   Entity.render(self)
+end
+
+function Player:calculateDistance(point)
+  local playerPoint = self.position + Vector2D(self.size.x / 2, self.size.y / 2)
+  return (playerPoint - point):magnitude()
 end

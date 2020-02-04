@@ -1,6 +1,7 @@
 -- 3rd party libraries
 push = require 'libs.push'
 Class = require 'libs.class'
+bresenham = require 'libs.bresenham'
 
 -- include
 require 'Animation'
@@ -55,6 +56,7 @@ PLAYER_MOVING_ACCELERATION = 1600
 SORCERER_MOVING_ACCELERATION = 400
 GRAVITY = 6
 PLAYER_JUMPING_VELOCITY = -120
+PLAYER_SORCERER_DETECTION_RANGE = 30
 
 -- color palette
 COLORS = {

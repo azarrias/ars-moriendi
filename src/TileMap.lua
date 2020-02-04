@@ -29,3 +29,11 @@ function TileMap:pointToTile(point)
   
   return self.tiles[math.floor(point.y / TILE_HEIGHT) + 1][math.floor(point.x / TILE_WIDTH) + 1]
 end
+
+--[[
+    Checks if the tile at a given point of a tile map is collidable or not
+]]
+function TileMap:isCollidable(x, y)
+  local tile = self:pointToTile(Vector2D(x, y))
+  return tile:collidable()
+end

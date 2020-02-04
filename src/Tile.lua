@@ -24,7 +24,7 @@ end
 --[[
     Checks that this ID is not blacklisted as non collidable in a global constants table
 ]]
-function Tile:collidable(target)
+function Tile:collidable()
   for k, v in pairs(TILE_ID_NON_COLLIDABLE) do
     if v == self.id then
       return false
