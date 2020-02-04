@@ -12,7 +12,8 @@ function GameStatePlay:init()
       ['idle'] = function() return PlayerStateIdle(self.player) end,
       ['moving'] = function() return PlayerStateMoving(self.player) end,
       ['jumping'] = function() return PlayerStateJumping(self.player) end,
-      ['falling'] = function() return PlayerStateFalling(self.player) end
+      ['falling'] = function() return PlayerStateFalling(self.player) end,
+      ['blocked'] = function() return PlayerStateBlocked(self.player) end
     },
     gameLevel = self.gameLevel,
     pivotPoint = Vector2D(PLAYER_WIDTH * 0.5, PLAYER_HEIGHT * 0.5)

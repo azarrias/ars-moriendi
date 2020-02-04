@@ -42,12 +42,12 @@ function Player:update(dt)
       )
       
       if detectedPlayer then
-        entity.playerPosition = self.position
+        entity.playerDetection = self
       else
-        entity.playerPosition = nil
+        entity.playerDetection = nil
       end
     else
-      entity.playerPosition = nil
+      entity.playerDetection = nil
     end
   end
 end

@@ -10,10 +10,10 @@ function SorcererStateMoving:init(sorcerer)
 end
 
 function SorcererStateMoving:enter(params)
-  if self.sorcerer.playerPosition ~= nil then
-    self.sorcerer.orientation = self.sorcerer.playerPosition.x < self.sorcerer.position.x 
+  if self.sorcerer.playerDetection ~= nil then
+    self.sorcerer.orientation = self.sorcerer.playerDetection.position.x < self.sorcerer.position.x 
       and 'left' or 'right'
-    self.movingPeriod = 1
+    self.movingPeriod = 0
   else
     self.sorcerer.orientation = math.random(2) == 1 and 'left' or 'right'
     self.movingPeriod = math.random(5)
@@ -26,22 +26,18 @@ function SorcererStateMoving:update(dt)
   self.movingTimer = self.movingTimer + dt
   self.animation:update(dt)
   
-  if self.movingTimer > self.movingPeriod then
-    if self.sorcerer.playerPosition ~= nil then
-      self.sorcerer.orientation = self.sorcerer.playerPosition.x < self.sorcerer.position.x 
-        and 'left' or 'right'
-      self.movingPeriod = 1
-      self.movingTimer = 0
-    elseif math.random(4) == 1 then
+  if self.movingTimer > self.movingPeriod and self.sorcerer.playerDetection == nil then
+    if math.random(4) == 1 then
       self.sorcerer:changeState('idle', {
-        wait = math.random(5)
+        wait = math.random(5),
+        monitoring = false
       })
     else
       self.sorcerer.orientation = math.random(2) == 1 and 'left' or 'right'
       self.movingPeriod = math.random(5)
       self.movingTimer = 0
     end
-  
+    
   elseif self.sorcerer.orientation == 'left' then
     self.sorcerer.velocity.x = -SORCERER_MOVING_ACCELERATION * dt
     self.sorcerer.position.x = self.sorcerer.position.x + self.sorcerer.velocity.x * dt
@@ -49,19 +45,21 @@ function SorcererStateMoving:update(dt)
     
     -- if there are no tiles below or a solid tile on the current direction, check if the player is visible
     if tiles['left-top'] or not tiles['left-bottom'] then
-      if self.sorcerer.playerPosition ~= nil then
+      if self.sorcerer.playerDetection ~= nil then
         self.sorcerer:changeState('idle', {
-          wait = 1
-        })
+        wait = math.random(5),
+        monitoring = true
+      })
       else -- turn around and go
         self.sorcerer.position.x = self.sorcerer.position.x + self.sorcerer.velocity.x * dt
         self.sorcerer.orientation = 'right'
         self.movingPeriod = math.random(5)
         self.movingTimer = 0
       end
-    elseif self.sorcerer.playerPosition ~= nil and self.sorcerer:calculateDistance(self.sorcerer.playerPosition) < 15 then
+    elseif self.sorcerer.playerDetection ~= nil and self.sorcerer:calculateDistance(self.sorcerer.playerDetection.position) < 15 then
       self.sorcerer:changeState('idle', {
-        wait = 1
+        wait = math.random(5),
+        monitoring = true
       })
     end
   
@@ -72,20 +70,29 @@ function SorcererStateMoving:update(dt)
     
     -- if there are no tiles below or a solid tile on the current direction, check if the player is visible
     if tiles['right-top'] or not tiles['right-bottom'] then
-      if self.sorcerer.playerPosition ~= nil then
+      if self.sorcerer.playerDetection ~= nil then
         self.sorcerer:changeState('idle', {
-          wait = 1
-        })
+        wait = math.random(5),
+        monitoring = true
+      })
       else -- turn around and go
         self.sorcerer.position.x = self.sorcerer.position.x + self.sorcerer.velocity.x * dt
         self.sorcerer.orientation = 'left'
         self.movingPeriod = math.random(5)
         self.movingTimer = 0
       end
-    elseif self.sorcerer.playerPosition ~= nil and self.sorcerer:calculateDistance(self.sorcerer.playerPosition) < 15 then
+    elseif self.sorcerer.playerDetection ~= nil and self.sorcerer:calculateDistance(self.sorcerer.playerDetection.position) < 15 then
       self.sorcerer:changeState('idle', {
-        wait = 1
+        wait = math.random(5),
+        monitoring = true
       })
+    end
+  end
+  
+  if self.sorcerer.playerDetection ~= nil then
+    if self.sorcerer.playerDetection.position.y >= (TOP_GROUND_TILE_Y - 1) * TILE_HEIGHT then
+      self.sorcerer.playerDetection:changeState('blocked')
+      self.sorcerer:changeState('casting', { player = self.sorcerer.playerDetection })
     end
   end
 end
