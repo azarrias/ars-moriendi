@@ -57,31 +57,26 @@ function LevelFactory.create(width, height)
       platformCooldown = 3
     end
 
-    if spawnChasm then
-      -- workaround for lua missing the 'continue' statement
-      goto continue
-    end
-    
-    if spawnPillar then
-      for y = 5, 6 do
-        tiles[y][x] = Tile(x, y, TILE_ID_GROUND)
+    if not spawnChasm then
+      if spawnPillar then
+        for y = 5, 6 do
+          tiles[y][x] = Tile(x, y, TILE_ID_GROUND)
+        end
+      end
+      
+      -- always generate ground
+      for y = TOP_GROUND_TILE_Y, height do
+        local tileId = TILE_ID_GROUND
+        local scale = Vector2D(1, 1)
+        -- introduce random variations within the ground tiles
+        -- use different quads and randomize rotation
+        if math.random(15) == 1 then
+          tileId = TILE_ID_GROUND_VARIATIONS[math.random(#TILE_ID_GROUND_VARIATIONS)]
+          scale = Vector2D(math.random(1, 2) * 2 - 3 or 1, math.random(1, 2) * 2 - 3 or 1)
+        end
+        tiles[y][x] = Tile(x, y, tileId, false, scale)
       end
     end
-    
-    -- always generate ground
-    for y = TOP_GROUND_TILE_Y, height do
-      local tileId = TILE_ID_GROUND
-      local scale = Vector2D(1, 1)
-      -- introduce random variations within the ground tiles
-      -- use different quads and randomize rotation
-      if math.random(15) == 1 then
-        tileId = TILE_ID_GROUND_VARIATIONS[math.random(#TILE_ID_GROUND_VARIATIONS)]
-        scale = Vector2D(math.random(1, 2) * 2 - 3 or 1, math.random(1, 2) * 2 - 3 or 1)
-      end
-      tiles[y][x] = Tile(x, y, tileId, false, scale)
-    end
-    
-    ::continue::
   end
   
   local tileMap = TileMap(tiles)
