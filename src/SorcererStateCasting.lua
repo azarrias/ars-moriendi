@@ -8,11 +8,20 @@ function SorcererStateCasting:init(sorcerer)
   }
 end
 
-function SorcererStateCasting:enter(params)
-  self.player = params.player
+function SorcererStateCasting:enter()
+  self.waitPeriod = 2
+  self.waitTimer = 0 
 end
 
 function SorcererStateCasting:update(dt)
   self.animation:update(dt)
-  self.player:changeState('blocked')
+  
+  if self.waitTimer < self.waitPeriod then
+    self.waitTimer = self.waitTimer + dt
+  else
+    self.sorcerer:changeState('idle', {
+      wait = math.random(5),
+      monitoring = true
+    })
+  end
 end

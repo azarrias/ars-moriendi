@@ -2,6 +2,7 @@
 push = require 'libs.push'
 Class = require 'libs.class'
 bresenham = require 'libs.bresenham'
+Timer = require 'libs.knife.timer'
 
 -- include
 require 'Animation'
