@@ -27,7 +27,7 @@ function SorcererStateMoving:update(dt)
   self.animation:update(dt)
   
   if self.movingTimer > self.movingPeriod and self.sorcerer.playerDetection == nil then
-    if math.random(4) == 1 then
+    if math.random(5) == 1 then
       self.sorcerer:changeState('idle', {
         wait = math.random(5),
         monitoring = false

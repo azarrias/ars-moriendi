@@ -27,9 +27,11 @@ function Entity:render()
     self.pivotPoint.x, self.pivotPoint.y
   )
   
+--[[  
   for k, collider in pairs(self.colliders) do
     collider:render()
   end
+  ]]
 end
 
 function Entity:changeState(state, params)

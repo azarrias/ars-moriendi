@@ -9,7 +9,7 @@ function SorcererStateCasting:init(sorcerer)
 end
 
 function SorcererStateCasting:enter()
-  self.waitPeriod = 2
+  self.waitPeriod = 1.3
   self.waitTimer = 0 
 end
 

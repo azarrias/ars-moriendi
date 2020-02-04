@@ -34,7 +34,7 @@ function PlayerStateBlocked:enter()
     end
   end
   
-  Timer.tween(1, {
+  Timer.tween(1.2, {
     [self.player.position] = { 
       x = randX * TILE_WIDTH - PLAYER_WIDTH, 
       y = (targetY - 1) * TILE_HEIGHT - PLAYER_HEIGHT 
