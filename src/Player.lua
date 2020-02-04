@@ -14,7 +14,7 @@ function Player:update(dt)
     self.position.x = TILE_WIDTH * self.gameLevel.tileMap.width - self.size.x
   end
   
-  -- calculate distance to the enemies
+  -- check if any of the enemies detect the player
   local playerPoint = self.position + Vector2D(self.size.x / 2, self.size.y / 2)
   local playerTile = self.gameLevel.tileMap:pointToTile(playerPoint)
   local minDistance = math.max(self.gameLevel.tileMap.width * TILE_WIDTH, 
@@ -30,7 +30,6 @@ function Player:update(dt)
     if dist > PLAYER_SORCERER_DETECTION_RANGE or
       entity.orientation == 'left' and self.position.x > entity.position.x or
       entity.orientation == 'right' and self.position.x < entity.position.x then
-      break
     else
       local detectedPlayer = bresenham.los(entityTile.position.x, entityTile.position.y,
         playerTile.position.x, playerTile.position.y, 
@@ -44,13 +43,13 @@ function Player:update(dt)
       )
       
       if detectedPlayer then
-        print("[" .. dt .. "]")
-        print("Player at:") 
-        print(playerTile.position)
-        print("Enemy at:")
-        print(entityTile.position)
+        entity.playerPosition = self.position
+        break
       end
     end
+    
+    entity.playerPosition = nil
+    
   end
 end
 

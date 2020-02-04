@@ -2,6 +2,7 @@ Sorcerer = Class{__includes = Entity}
 
 function Sorcerer:init(def)
   Entity.init(self, def)
+  self.playerPosition = nil
 end
 
 function Sorcerer:update(dt)

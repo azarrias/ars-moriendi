@@ -16,7 +16,10 @@ end
 function SorcererStateIdle:update(dt)
   if self.waitTimer < self.waitPeriod then
     self.waitTimer = self.waitTimer + dt
-  else
+  elseif self.sorcerer.playerPosition ~= nil then
+    self.waitPeriod = 1
+    self.waitTimer = 0
+  else -- turn around and go
     self.sorcerer:changeState('moving')
   end
 end
