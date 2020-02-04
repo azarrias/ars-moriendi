@@ -21,6 +21,7 @@ function love.load()
     resizable = not MOBILE_OS
   })
   love.window.setTitle(GAME_TITLE)
+  math.randomseed(os.time())
   
   gameStateMachine = StateMachine {
     ['start'] = function() return GameStateStart() end,

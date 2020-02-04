@@ -31,9 +31,27 @@ function SorcererStateMoving:update(dt)
   elseif self.sorcerer.orientation == 'left' then
     self.sorcerer.velocity.x = -SORCERER_MOVING_ACCELERATION * dt
     self.sorcerer.position.x = self.sorcerer.position.x + self.sorcerer.velocity.x * dt
+    local tiles = self.sorcerer.colliders['collider']:checkTileCollisions(self.sorcerer.gameLevel.tileMap)
+    
+    -- if there are no tiles below or a solid tile on the current direction, turn around and go
+    if tiles['left-top'] or not tiles['left-bottom'] then
+      self.sorcerer.position.x = self.sorcerer.position.x + self.sorcerer.velocity.x * dt
+      self.sorcerer.orientation = 'right'
+      self.movingPeriod = math.random(5)
+      self.movingTimer = 0
+    end
   
   elseif self.sorcerer.orientation == 'right' then
     self.sorcerer.velocity.x = SORCERER_MOVING_ACCELERATION * dt
     self.sorcerer.position.x = self.sorcerer.position.x + self.sorcerer.velocity.x * dt
+    local tiles = self.sorcerer.colliders['collider']:checkTileCollisions(self.sorcerer.gameLevel.tileMap)
+    
+    -- if there are no tiles below or a solid tile on the current direction, turn around and go
+    if tiles['right-top'] or not tiles['right-bottom'] then
+      self.sorcerer.position.x = self.sorcerer.position.x + self.sorcerer.velocity.x * dt
+      self.sorcerer.orientation = 'left'
+      self.movingPeriod = math.random(5)
+      self.movingTimer = 0
+    end
   end
 end

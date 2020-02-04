@@ -50,8 +50,15 @@ function GameLevel:spawnEnemies()
                 ['moving'] = function() return SorcererStateMoving(sorcerer) end,
                 ['casting'] = function() return SorcererStateCasting(sorcerer) end
               },
-              gameLevel = self
+              gameLevel = self,
+              pivotPoint = Vector2D(4, SORCERER_HEIGHT * 0.5)
             })
+          
+            local sorcererCollider = Collider {
+              center = Vector2D(4, SORCERER_HEIGHT * 0.5),
+              size = Vector2D(8, SORCERER_HEIGHT)
+            }            
+            sorcerer:addCollider('collider', sorcererCollider)
           
             sorcerer:changeState('idle', {
               wait = math.random(5)

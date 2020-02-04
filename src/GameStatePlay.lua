@@ -15,6 +15,7 @@ function GameStatePlay:init()
       ['falling'] = function() return PlayerStateFalling(self.player) end
     },
     gameLevel = self.gameLevel,
+    pivotPoint = Vector2D(PLAYER_WIDTH * 0.5, PLAYER_HEIGHT * 0.5)
   })
 
   local playerBottomCollider = Collider {
