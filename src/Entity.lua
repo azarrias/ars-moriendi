@@ -40,3 +40,8 @@ function Entity:addCollider(label, collider)
   collider.parent = self
   self.colliders[label] = collider
 end
+
+function Entity:calculateDistance(point)
+  local myPoint = self.position + Vector2D(self.size.x / 2, self.size.y / 2)
+  return (myPoint - point):magnitude()
+end

@@ -56,8 +56,3 @@ end
 function Player:render()
   Entity.render(self)
 end
-
-function Player:calculateDistance(point)
-  local playerPoint = self.position + Vector2D(self.size.x / 2, self.size.y / 2)
-  return (playerPoint - point):magnitude()
-end

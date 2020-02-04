@@ -59,6 +59,10 @@ function SorcererStateMoving:update(dt)
         self.movingPeriod = math.random(5)
         self.movingTimer = 0
       end
+    elseif self.sorcerer.playerPosition ~= nil and self.sorcerer:calculateDistance(self.sorcerer.playerPosition) < 20 then
+      self.sorcerer:changeState('idle', {
+        wait = 1
+      })
     end
   
   elseif self.sorcerer.orientation == 'right' then
@@ -78,6 +82,10 @@ function SorcererStateMoving:update(dt)
         self.movingPeriod = math.random(5)
         self.movingTimer = 0
       end
+    elseif self.sorcerer.playerPosition ~= nil and self.sorcerer:calculateDistance(self.sorcerer.playerPosition) < 20 then
+      self.sorcerer:changeState('idle', {
+        wait = 1
+      })
     end
   end
 end
