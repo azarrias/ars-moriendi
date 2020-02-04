@@ -16,7 +16,8 @@ end
 function SorcererStateIdle:update(dt)
   if self.waitTimer < self.waitPeriod then
     self.waitTimer = self.waitTimer + dt
-  elseif self.sorcerer.playerPosition ~= nil then
+  elseif self.sorcerer.playerPosition ~= nil 
+    and self.sorcerer:calculateDistance(self.sorcerer.playerPosition) < 15 then
     self.waitPeriod = 1
     self.waitTimer = 0
   else -- turn around and go

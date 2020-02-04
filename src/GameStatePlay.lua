@@ -50,6 +50,7 @@ end
 function GameStatePlay:render()
   love.graphics.clear(COLORS['light'])
   
+  love.graphics.push()
   -- translate scene by camera scroll amount; negative shifts have the effect of making it seem
   -- like we're actually moving right and vice-versa; note the use of math.floor, as rendering
   -- fractional camera offsets with a virtual resolution will result in weird pixelation and artifacting
@@ -58,4 +59,7 @@ function GameStatePlay:render()
   
   self.gameLevel:render()
   self.player:render()
+  
+  love.graphics.pop()
+  
 end
