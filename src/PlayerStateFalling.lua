@@ -28,6 +28,12 @@ function PlayerStateFalling:update(dt)
     -- rectify the player's y coordinate to its appropriate value
     local tile = not tiles['left-bottom'] and tiles['right-bottom'] or tiles['left-bottom']
     self.player.position.y = (tile.position.y - 1) * TILE_HEIGHT - self.player.size.y
+    
+  -- die if it falls out of bounds down below
+  elseif self.player.position.y > VIRTUAL_HEIGHT then
+    self.player.deaths = self.player.deaths + 1
+    self.player.position = Vector2D(PLAYER_STARTING_X * TILE_WIDTH - PLAYER_WIDTH, PLAYER_STARTING_Y * TILE_HEIGHT - PLAYER_HEIGHT)
+    self.player:changeState('idle')
   
   -- if the player is moving in the air, check for side collisions
   elseif love.keyboard.isDown('left') then

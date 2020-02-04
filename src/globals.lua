@@ -12,6 +12,7 @@ require 'Entity'
 require 'GameLevel'
 require 'GameStatePlay'
 require 'GameStateStart'
+require 'Hud'
 require 'LevelFactory'
 require 'Player'
 require 'PlayerStateFalling'
@@ -50,6 +51,7 @@ VIRTUAL_WIDTH, VIRTUAL_HEIGHT = 84, 48
 PLAYER_WIDTH, PLAYER_HEIGHT = 6, 6
 TILE_WIDTH, TILE_HEIGHT = 6, 6
 SORCERER_WIDTH, SORCERER_HEIGHT = 11, 7
+SKULL_WIDTH = 7
 
 -- physics for entities
 PLAYER_MOVING_ACCELERATION = 1600
@@ -68,7 +70,8 @@ COLORS = {
 TEXTURES = {
   ['player'] = love.graphics.newImage('graphics/player.png'),
   ['tiles'] = love.graphics.newImage('graphics/tiles.png'),
-  ['sorcerer'] = love.graphics.newImage('graphics/sorcerer.png')
+  ['sorcerer'] = love.graphics.newImage('graphics/sorcerer.png'),
+  ['skull'] = love.graphics.newImage('graphics/skull.png')
 }
 
 FRAMES = {

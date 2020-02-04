@@ -39,6 +39,12 @@ function GameStatePlay:init()
   self.player:changeState('idle')
   
   self.camera = Camera(self.player)
+  
+  self.hud = Hud({
+    position = Vector2D(2, 2),
+    texture = 'skull',
+    player = self.player
+  })
 end
 
 function GameStatePlay:update(dt)
@@ -61,5 +67,5 @@ function GameStatePlay:render()
   self.player:render()
   
   love.graphics.pop()
-  
+  self.hud:render()
 end
