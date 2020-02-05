@@ -31,9 +31,7 @@ function PlayerStateFalling:update(dt)
     
   -- die if it falls out of bounds down below
   elseif self.player.position.y > VIRTUAL_HEIGHT then
-    self.player.deaths = self.player.deaths + 1
-    self.player.position = Vector2D(PLAYER_STARTING_X * TILE_WIDTH - PLAYER_WIDTH, PLAYER_STARTING_Y * TILE_HEIGHT - PLAYER_HEIGHT)
-    self.player:changeState('idle')
+    self.player:changeState('dying', { dyingX = self.player.position.x })
   
   -- if the player is moving in the air, check for side collisions
   elseif love.keyboard.isDown('left') then

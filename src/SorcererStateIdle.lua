@@ -19,10 +19,10 @@ function SorcererStateIdle:update(dt)
   if self.sorcerer.playerDetection ~= nil then
     if self.sorcerer.playerDetection.position.y >= (TOP_GROUND_TILE_Y - 1) * TILE_HEIGHT then
       self.sorcerer.playerDetection:changeState('blocked')
-      self.sorcerer:changeState('casting', { player = self.sorcerer.playerDetection })
+      self.sorcerer:changeState('casting')
       
     elseif not self.monitoring and 
-      self.sorcerer:calculateDistance(self.sorcerer.playerDetection.position) > 15 then
+      self.sorcerer:calculateDistance(self.sorcerer.playerDetection.position) > 10 then
         self.sorcerer:changeState('moving')
     end
   elseif self.waitTimer < self.waitPeriod then

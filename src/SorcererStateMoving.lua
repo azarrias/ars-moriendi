@@ -56,7 +56,7 @@ function SorcererStateMoving:update(dt)
         self.movingPeriod = math.random(5)
         self.movingTimer = 0
       end
-    elseif self.sorcerer.playerDetection ~= nil and self.sorcerer:calculateDistance(self.sorcerer.playerDetection.position) < 15 then
+    elseif self.sorcerer.playerDetection ~= nil and self.sorcerer:calculateDistance(self.sorcerer.playerDetection.position) < 14 then
       self.sorcerer:changeState('idle', {
         wait = math.random(5),
         monitoring = true
@@ -81,7 +81,7 @@ function SorcererStateMoving:update(dt)
         self.movingPeriod = math.random(5)
         self.movingTimer = 0
       end
-    elseif self.sorcerer.playerDetection ~= nil and self.sorcerer:calculateDistance(self.sorcerer.playerDetection.position) < 15 then
+    elseif self.sorcerer.playerDetection ~= nil and self.sorcerer:calculateDistance(self.sorcerer.playerDetection.position) < 8 then
       self.sorcerer:changeState('idle', {
         wait = math.random(5),
         monitoring = true
