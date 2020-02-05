@@ -31,7 +31,7 @@ function PlayerStateFalling:update(dt)
     
   -- die if it falls out of bounds down below
   elseif self.player.position.y > VIRTUAL_HEIGHT then
-    self.player:changeState('dying', { dyingX = self.player.position.x })
+    self.player:changeState('dying', { dyingX = self.player.position.x + self.player.size.x / 2 })
   
   -- if the player is moving in the air, check for side collisions
   elseif love.keyboard.isDown('left') then

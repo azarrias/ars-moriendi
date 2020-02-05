@@ -28,9 +28,10 @@ function love.load()
   gameStateMachine = StateMachine {
     ['start'] = function() return GameStateStart() end,
     ['play'] = function() return GameStatePlay() end,
-    ['game-over'] = function() return GameStateGameOver() end
+    ['game-over'] = function() return GameStateGameOver() end,
+    ['title'] = function() return GameStateTitle() end
   }
-  gameStateMachine:change('start')
+  gameStateMachine:change('title')
   
   font = love.graphics.newImageFont('fonts/nokia-3310-classic.png',
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 $€£¥¤+-*/=%\"'#@&_(),.;:?!\\|[]<>{}`^~")

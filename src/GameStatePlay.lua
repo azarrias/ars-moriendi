@@ -49,6 +49,10 @@ function GameStatePlay:init()
   })
 end
 
+function GameStatePlay:enter(params)
+  self.gameLevel.level = params.level
+end
+
 function GameStatePlay:update(dt)
   self.player:update(dt)
   self.gameLevel:update(dt)

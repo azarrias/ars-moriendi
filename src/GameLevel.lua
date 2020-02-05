@@ -3,6 +3,7 @@ GameLevel = Class{}
 function GameLevel:init(tileMap)
   self.tileMap = tileMap
   self.entities = {}
+  self.level = nil
 end
 
 function GameLevel:update(dt)

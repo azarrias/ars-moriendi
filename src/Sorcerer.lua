@@ -12,6 +12,7 @@ end
 function Sorcerer:render()
   Entity.render(self)
   
+--[[
   if self.playerDetection ~= nil then
     local r, g, b, a = love.graphics.getColor()
   
@@ -21,4 +22,5 @@ function Sorcerer:render()
   
     love.graphics.setColor(r, g, b, a)
   end
+]]
 end
