@@ -18,24 +18,33 @@ function GameStateTitle:init()
 end
 
 function GameStateTitle:update(dt)
-  if love.keyboard.keysPressed['enter'] or love.keyboard.keysPressed['return'] then
-    self.counter = self.counter + 1
-    self.timer = 0
+  if love.keyboard.keysPressed['enter'] or love.keyboard.keysPressed['return'] 
+    and self.counter <= #self.texts then
+      self.counter = self.counter + 1
+      self.timer = 0
   end
+    
+  self.timer = self.timer + dt
     
   if self.counter <= #self.texts then
     self.text = self.texts[self.counter]
       
   elseif self.counter == #self.texts + 1 then
     self.text = {{ string = '' }}
-    self.timer = self.timer + dt
     if self.timer > 0.7 then
       self.text = self.title
+      self.counter = self.counter + 1
+      self.timer = 0
+    end
+      
+  elseif self.counter == #self.texts + 2 then
+    if self.timer > 2 then
+      self.counter = self.counter + 1
+      self.timer = 0
     end
       
   else
     self.text = {{ string = '' }}
-    self.timer = self.timer + dt
     if self.timer > 0.5 then
       gameStateMachine:change('start', { level = 1 })
     end

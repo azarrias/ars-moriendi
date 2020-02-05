@@ -85,3 +85,13 @@ FRAMES = {
   ['tiles'] = GenerateQuads(TEXTURES['tiles'], TILE_WIDTH, TILE_HEIGHT),
   ['sorcerer'] = GenerateQuads(TEXTURES['sorcerer'], SORCERER_WIDTH, SORCERER_HEIGHT)
 }
+
+SOUNDS = {
+  ['cast'] = love.audio.newSource('audio/cast.wav', 'static'),
+  ['spawn-tile'] = love.audio.newSource('audio/spawn_tile.wav', 'static'),
+  ['jump'] = love.audio.newSource('audio/jump.wav', 'static'),
+  ['jump-landing'] = love.audio.newSource('audio/jump_landing.wav', 'static'),
+  ['death'] = love.audio.newSource('audio/death.wav', 'static'),
+  ['arise'] = love.audio.newSource('audio/arise.wav', 'static'),
+  ['start-level'] = love.audio.newSource('audio/start_level.wav', 'static')
+}

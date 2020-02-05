@@ -23,6 +23,8 @@ function PlayerStateDying:enter(params)
       [self.newTile.position] = { y = TOP_GROUND_TILE_Y }
     })
     : finish(function()
+        SOUNDS['spawn-tile']:stop()
+        SOUNDS['spawn-tile']:play()
         if self.player.deaths == 5 then
           if self.player.gameLevel.level == 5 then
             gameStateMachine:change('game-over')
@@ -38,6 +40,8 @@ function PlayerStateDying:enter(params)
                 [self.player.position] = { y = PLAYER_STARTING_Y * TILE_HEIGHT - PLAYER_HEIGHT }
               })
               : finish(function()
+                  SOUNDS['arise']:stop()
+                  SOUNDS['arise']:play()
                   self.player:changeState('idle')
                 end)
             end)

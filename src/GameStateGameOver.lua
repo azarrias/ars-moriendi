@@ -9,7 +9,7 @@ end
 
 function GameStateGameOver:update(dt)
   self.timer = self.timer + dt
-  if self.timer > 1 then
+  if self.timer > 3 then
     self.text = {{ string = '' }}
   end
 end  

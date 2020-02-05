@@ -17,6 +17,8 @@ function PlayerStateFalling:update(dt)
   local tiles = self.player.colliders['bottom']:checkTileCollisions(self.player.gameLevel.tileMap)
   
   if tiles['left-bottom'] or tiles['right-bottom'] then
+    SOUNDS['jump-landing']:stop()
+    SOUNDS['jump-landing']:play()
     self.player.velocity.y = 0
     
     if love.keyboard.isDown('left') or love.keyboard.isDown('right') then
@@ -31,6 +33,8 @@ function PlayerStateFalling:update(dt)
     
   -- die if it falls out of bounds down below
   elseif self.player.position.y > VIRTUAL_HEIGHT then
+    SOUNDS['death']:stop()
+    SOUNDS['death']:play()
     self.player:changeState('dying', { dyingX = self.player.position.x + self.player.size.x / 2 })
   
   -- if the player is moving in the air, check for side collisions

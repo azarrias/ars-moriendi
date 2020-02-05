@@ -9,6 +9,8 @@ function PlayerStateJumping:init(player)
 end
 
 function PlayerStateJumping:enter()
+  SOUNDS['jump']:stop()
+  SOUNDS['jump']:play()
   self.player.velocity.y = PLAYER_JUMPING_VELOCITY
 end
 

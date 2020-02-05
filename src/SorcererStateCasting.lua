@@ -11,6 +11,8 @@ end
 function SorcererStateCasting:enter()
   self.waitPeriod = 1.3
   self.waitTimer = 0 
+  SOUNDS['cast']:stop()
+  SOUNDS['cast']:play()
 end
 
 function SorcererStateCasting:update(dt)
